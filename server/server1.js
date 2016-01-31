@@ -1,14 +1,18 @@
 var sys = require("sys");
-my_http = require("http");
+var fs  = require("fs");
+var my_http = require("http");
 
 my_http.createServer(function(request,response){
     sys.puts("I got kicked");
     // write header
-    response.writeHeader(200, {"Content-Type": "text/plain"});
+    response.writeHeader(200, {"Content-Type": "text/html"});
     // write resp.
-    response.write("Hello Emulin\n");
-    // send resp.
-    response.end();
+    fs.readFile("homePage.html", function(err, data){
+    	// write data
+ 	 	response.write(data);
+ 	 	// send resp.
+  		response.end();
+	});
 
 }).listen(8080);
 
